@@ -1,8 +1,8 @@
-﻿#include <iostream>     // ввод и вывод
+#include <iostream>     // ввод и вывод
 #include <cstdlib>      // rand(), srand()
 #include <ctime>        // time()
 #include <string>       // string
-#include <chrono>       // таймер
+#include <chrono>
 
 using namespace std;
 using namespace std::chrono;
@@ -40,13 +40,23 @@ int main() {
             int correctAnswer;
             char operation;
 
-            int type = rand() % 3; // 0 +, 1 *, 2 /
+            int type = rand() % 4; // 0 +, 1 -, 2 *, 3 /
 
             if (type == 0) {
                 operation = '+';
                 correctAnswer = a + b;
             }
             else if (type == 1) {
+                // ВЫЧИТАНИЕ БЕЗ ОТРИЦАТЕЛЬНЫХ ЧИСЕЛ
+                if (a < b) {
+                    int temp = a;
+                    a = b;
+                    b = temp;
+                }
+                operation = '-';
+                correctAnswer = a - b;
+            }
+            else if (type == 2) {
                 operation = '*';
                 correctAnswer = a * b;
             }
@@ -94,11 +104,11 @@ int main() {
             cout << "Рекорд: " << record << endl;
         }
 
-        cout << "\nВведите Заново для новой игры или EXIT для выхода: ";
+        cout << "\nВведите Restart для новой игры или EXIT для выхода: ";
         string choice;
         cin >> choice;
 
-        if (choice != "Заново") {
+        if (choice != "Restart") {
             break;
         }
 
